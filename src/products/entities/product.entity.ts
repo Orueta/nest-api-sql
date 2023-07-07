@@ -1,7 +1,10 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ProductImage } from "./product-image.entity";
 
 // Definir tablas de la base de datos
-@Entity()
+@Entity({
+    name: 'products'
+})
 export class Product {
     // Columnas de la base de datos
     @PrimaryGeneratedColumn('uuid')
@@ -47,6 +50,15 @@ export class Product {
         default: []
     })
     tags: string[];
+
+    // Imagenes y relaciones
+    // Relacion uno a muchos
+    @OneToMany(
+        () => ProductImage,
+        (productImage) => productImage.product,
+        {cascade: true, eager: true}
+    )
+    images?: ProductImage[];
 
 
     // Aplicar cierta logica antes de insertar datos en la db
