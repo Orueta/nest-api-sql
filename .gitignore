@@ -3,6 +3,8 @@
 /node_modules
 
 postgres/
+static/
+public/
 
 # Logs
 logs
